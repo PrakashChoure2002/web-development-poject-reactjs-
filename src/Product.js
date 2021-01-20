@@ -1,33 +1,35 @@
 import React, { Component } from 'react'
-class Product extends Component{
-    constructor() {
-        super();
-        this.state={
-            price:1990,
-            title:' chutiya phone',
-            qty:1,
-            img:''
+const Product =(props) =>{
+
+
+  //  constructor() {
+    //    super();
+      //  this.state={
+        //    price:1990,
+         //   title:' chutiya phone',
+        //    qty:1,
+         //   img:''
 
 
             //this.testing()
-        }
-        this.testing ();
+        //}
+        //this.testing ();
     
 
       //  this.increaseQuantity=this.increaseQuantity.bind(this);
-    }
-    testing(){
-        const promise = new Promise((resolve,reject) =>{
-            setTimeout(() =>{
-                resolve('done');
-            },1000);
-        })
-        promise.then(()=>{
-            this.setState({qty:0});
-            console.log('state',this.state);
+    //}
+    //testing(){
+      //  const promise = new Promise((resolve,reject) =>{
+        //    setTimeout(() =>{
+          //      resolve('done');
+           // },1000);
+       // })
+       // promise.then(()=>{
+         //   this.setState({qty:0});
+           // console.log('state',this.state);
 
-        });
-    }
+     //   });
+  //  }
     
   //  increaseQuantity =() => {
 
@@ -56,13 +58,13 @@ class Product extends Component{
         //  qty:this.state.qty==0,
       //  })
     //}
-    render(){
-        console.log('this.props',this.props);
-      const {price,title,qty} =this.props.item;  
+    
+      //  console.log('this.props',this.props);
+      const {price,title,qty} = props.item;  
       const {item,
         onIncreaseQuantity,
         onDecreaseQuantity,
-        onDeleteItem}=this.props;
+        onDeleteItem}=props;
         return (
             <div>
                 <h1>CART</h1>
@@ -70,7 +72,7 @@ class Product extends Component{
             
             <div className="cart-item">
                 <div className ="left-block">
-                    <img style={styles.image} />
+                    <img style={styles.image} src={item.img} />
                 </div>
                 <div className="right-block">
                     <div style={{fontsize:50,color:'#777'}}>Rs:{price}</div>
@@ -96,13 +98,13 @@ class Product extends Component{
         );
     }
 
-}
 
 const styles={
     image:{
-        width:20,
+        width:50,
         height:50,
-       // backgroundcolor:'#777'
+        backgroundcolor:"red",
+        padding:5
 
     }
 }
