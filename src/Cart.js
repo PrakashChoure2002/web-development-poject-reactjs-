@@ -2,7 +2,7 @@ import React from 'react';
 import Product from './Product';
 const Cart = (props) =>{
 
-
+//{ADD IS APP.JS FILE}  //
    // constructor() {
       //  super();
     //  this.state={

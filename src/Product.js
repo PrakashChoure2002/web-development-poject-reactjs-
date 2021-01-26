@@ -104,7 +104,7 @@ const styles={
         width:50,
         height:50,
         backgroundcolor:"red",
-        padding:5
+        padding:5,
 
     }
 }

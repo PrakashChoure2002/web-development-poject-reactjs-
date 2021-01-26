@@ -3,13 +3,20 @@ import './App.css';
 import Cart from './Cart'
 import Navbar from './Navbar'
 import Product from './Product'
+import firebase from 'firebase'
+
+
+
 class App extends Component {
 
   constructor() {
     super();
   this.state={
         items:[
-            {
+
+          
+          /*(directly taking product from firebase)
+          {
         price:99,
       title:'watch',
         qty:0,
@@ -32,12 +39,70 @@ class App extends Component {
         qty:0,
         img:'https://media.istockphoto.com/photos/brown-teddy-bear-isolated-in-front-of-a-white-background-picture-id909772478?k=6&m=909772478&s=612x612&w=0&h=X55jzpsKboa_jUjbEN8eqAn0gjt696ldbeJMEqmNrcU=',
         id:3
-    }
-]
+    }*/
+] ,
+
+loading:true
     }
 }
+
+componentDidMount(){
+ /* firebase
+  .firestore()
+  .collection('items')
+  .get()
+  .then((snapshot)=>{
+    console.log(snapshot)
+   snapshot.docs.map((doc)=>{
+      console.log(doc.data())
+
+    })
+    const items = snapshot.docs.map((doc)=>{
+      const data =doc.data()
+      data ['id'] =doc.id
+      
+      return data;
+    })
+    this.setState({
+      items,
+      loading:false
+
+    })
+
+
+  })
+  [INSTEAD OF get() FUNCTION  WE WILL USE SNAPSHOT FUNCTION]
+  */
+  firebase
+  .firestore()
+  .collection('items')
+  .onSnapshot((snapshot)=>{
+    console.log(snapshot)
+   snapshot.docs.map((doc)=>{
+      console.log(doc.data())
+
+    })
+    const items = snapshot.docs.map((doc)=>{
+      const data =doc.data()
+      data ['id'] =doc.id
+      
+      return data;
+    })
+    this.setState({
+      items,
+      loading:false
+
+    })
+
+
+  })
+  
+
+}
+
+
 handleIncreaseQuantity = (item) => {
-    console.log('Heyy please increase the qty of',item);
+    console.log('Hey please increase the qty of',item);
     const {items}=this.state;
     const index=items.indexOf(item);
     items[index].qty +=1; 
@@ -46,6 +111,8 @@ handleIncreaseQuantity = (item) => {
     })
     
 }
+
+
 
 handleDecreaseQuantity = (item) => {
     console.log('Hey please decrease the qty of',item);
@@ -96,9 +163,10 @@ getCartTotal =()=>{
 
 
   render() {
-    const {items} =this.state;
+    const {items,loading} =this.state;
     return (
       <div className="App">
+      
          <Navbar
            count={this.getCartCount()}
          />
@@ -110,7 +178,8 @@ getCartTotal =()=>{
                onDeleteItem = {this.handleDeleteItem}
             
          />
-         <div style={{padding:5,fontsize:10}}>
+         {loading && <h1>Loading Items ...</h1>}
+         <div style={{padding:5,fontsize:10 }}>
            TOTAL:{this.getCartTotal()}
          </div>
         
